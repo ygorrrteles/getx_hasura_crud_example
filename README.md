@@ -1,16 +1,58 @@
-# getx_hasura_crud_example
+# Flutter Crud (Getx + Hasura)
 
-A new Flutter application.
+_A Flutter crud project based in [Getx](https://pub.dev/packages/get) and [Hasura](https://hasura.io) offering basic structures for future projects._
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Running this project
+#### 1. Verify installable pre-requisites to run:
 
-A few resources to get you started if this is your first Flutter project:
+- [Flutter](https://flutter.dev)
+- [Android/IOS Emulator](https://developer.android.com/studio)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+#### 2. Deploying a *Hasura* project
+First you need to [Sign Up](https://cloud.hasura.io/login?redirect_url=/) Hasura and create a project for free, after configure your project create a table named **produtos** from hasura console on postgress database like bellow
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+| produtos
+-------------
+Column      |  Column Type            |Nullable |  Unique  | 
+:----------:| ----------------------- |:-------:| :------: |
+id          | Integer (auto-increment)|  false  | true     |    
+nome        | Text                    |  false  | true*    | 
+valor       | Numeric                 |  false  | false    |
+In the _unique_ Column **true*** is optional
+
+**Important:** Setup the id like Primary Key
+
+|  Primary Key |
+| :-----------:|
+|      id      |
+
+
+
+
+
+#### 3. Running in the Emulator
+Open the root directory of this repository in mac/linux/windows **Terminal** and type the following commands:
+
+This command will refresh and download all project dependecies
+```
+flutter pub get
+```
+This command will compile and run the app
+```
+flutter run
+```
+After executing this command, the application will be running on your emulator.
+
+#### 4. Editing your project
+See the [Dart](https://dart.dev/guides) and [Flutter](https://flutter.dev/docs) Docs.
+
+
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)

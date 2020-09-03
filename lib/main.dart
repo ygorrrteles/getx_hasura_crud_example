@@ -6,7 +6,8 @@ import 'package:getx_hasura_crud_example/pages/HomePage.dart';
 void main() {
   runApp(
     GetMaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Crud',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
