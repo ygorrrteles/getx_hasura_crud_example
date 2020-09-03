@@ -3,14 +3,14 @@ import 'package:get/get.dart';
 import 'package:getx_hasura_crud_example/model/produto.dart';
 import 'package:getx_hasura_crud_example/repository/produto_repository.dart';
 
-class HomePageController extends GetxController{
+class HomePageController extends GetxController {
   static HomePageController get to => Get.find();
   final _produtoRepository = Get.find<ProdutoRepository>();
 
   TextEditingController nomeController = TextEditingController();
   TextEditingController valorController = TextEditingController();
   ScrollController scrollController = ScrollController();
-  final msgCarregando = "carregando".obs;
+  final msgCarregando = "Lista Vazia".obs;
 
   int _maxOffSet = 10;
   final _listPaginada = List<Produto>().obs;
@@ -20,19 +20,23 @@ class HomePageController extends GetxController{
     _listPaginada.value = await _produtoRepository.getProdutosPaginados(0);
     _maxOffSet = 10;
     scrollController.position.jumpTo(0);
-    Get.snackbar("Lista","Atualizada",snackPosition: SnackPosition.BOTTOM);
+    Get.snackbar("Lista", "Atualizada", snackPosition: SnackPosition.BOTTOM);
   }
 
   Future<void> adicionarProduto() async {
-    Produto produto = Produto(nome: nomeController.text,valor: double.parse(valorController.text));
+    Produto produto = Produto(
+        nome: nomeController.text, valor: double.parse(valorController.text));
     clearTextEditingController();
     Get.back();
-    await  _produtoRepository.adicionarProduto(produto);
+    await _produtoRepository.adicionarProduto(produto);
     refrestList();
   }
 
   Future<void> editarProduto(int id) async {
-    Produto produto = Produto(id: id, nome: nomeController.text,valor: double.parse(valorController.text));
+    Produto produto = Produto(
+        id: id,
+        nome: nomeController.text,
+        valor: double.parse(valorController.text));
     clearTextEditingController();
     Get.back();
     await _produtoRepository.editarProduto(produto);
@@ -51,9 +55,11 @@ class HomePageController extends GetxController{
 
   Future paginationOffSet() async {
     scrollController.addListener(() async {
-      if(scrollController.position.pixels == scrollController.position.maxScrollExtent){
-        msgCarregando.value = "carregando";
-        _listPaginada.addAll(await _produtoRepository.getProdutosPaginados(_maxOffSet));
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
+        msgCarregando.value = "Lista Vazia";
+        _listPaginada
+            .addAll(await _produtoRepository.getProdutosPaginados(_maxOffSet));
         _maxOffSet = _maxOffSet + 10;
         msgCarregando.value = "acabou";
       }

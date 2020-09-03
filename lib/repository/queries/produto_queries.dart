@@ -1,4 +1,4 @@
-class ProdutoQueries{
+class ProdutoQueries {
   static final String LISTA_PAGINADA = ''' 
 query getProdutosPaginados(\$offset: Int) {
   produto(limit: 10, offset: \$offset, order_by: {id: desc}) {
@@ -10,7 +10,7 @@ query getProdutosPaginados(\$offset: Int) {
 ''';
 
   static final String ADICIONAR_PRODUTO = ''' 
-mutation adicionarProduto(\$valor: float8, \$nome: String,) {
+mutation adicionarProduto(\$valor: numeric, \$nome: String,) {
   insert_produto_one(object: {nome: \$nome, valor: \$valor,}) {
     id
   }
@@ -26,11 +26,10 @@ mutation deleteProduto(\$id: Int!) {
 ''';
 
   static final String EDITAR_PRODUTO = ''' 
-mutation editarProduto(\$nome: String, \$valor: float8, \$id: Int!) {
+mutation editarProduto(\$nome: String, \$valor: numeric, \$id: Int!) {
   update_produto_by_pk(pk_columns: {id: \$id}, _set: {nome: \$nome, valor: \$valor}) {
     id
   }
 }
 ''';
 }
-

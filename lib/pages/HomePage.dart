@@ -26,21 +26,24 @@ class HomePage extends StatelessWidget {
           itemCount: HomePageController.to.listPaginada.length + 1,
           itemBuilder: (context, index) {
             if (index == HomePageController.to.listPaginada.length) {
-              return Center(child: Obx(() => Text(HomePageController.to.msgCarregando.value)));
+              return Center(
+                  child: Obx(
+                      () => Text(HomePageController.to.msgCarregando.value)));
             }
             Produto produto = HomePageController.to.listPaginada[index];
             return Container(
-              height: 100,
               child: ListTile(
-                onTap: (){
+                onTap: () {
                   editarDialog(produto);
                 },
-                leading: Text("${produto.id}"),
+                leading: Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 8, 0, 0),
+                  child: Text("${produto.id}"),
+                ),
                 title: Text("${produto.nome}"),
                 subtitle: Text("${produto.valor}"),
-                isThreeLine: true,
                 trailing: IconButton(
-                  onPressed: (){
+                  onPressed: () {
                     HomePageController.to.deletarProduto(produto.id);
                   },
                   icon: Icon(Icons.delete),
@@ -56,67 +59,93 @@ class HomePage extends StatelessWidget {
   void adicionarDialog() {
     HomePageController.to.clearTextEditingController();
     Get.defaultDialog(
-      title: "Adicionar produto",
-      content: Column(
-        children: [
-          TextField(
-            controller: HomePageController.to.nomeController,
-            decoration: InputDecoration(
-                hintText: "Nome"
+      title: "",
+      content: Padding(
+        padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+              child: Text(
+                "Adicionar produto",
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+              ),
             ),
-          ),
-          TextField(
-            controller: HomePageController.to.valorController,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              hintText: "Valor"
+            TextField(
+              controller: HomePageController.to.nomeController,
+              decoration: InputDecoration(hintText: "Nome"),
             ),
-          ),
-        ],
+            TextField(
+              controller: HomePageController.to.valorController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(hintText: "Valor"),
+            ),
+          ],
+        ),
       ),
       actions: [
-        FlatButton(
-          child: Text("voltar"),
-          onPressed: Get.back,
-        ),
-        FlatButton(
-          child: Text("Adicionar"),
-          onPressed: HomePageController.to.adicionarProduto,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            FlatButton(
+              child: Text("voltar",
+                  style: TextStyle(fontSize: 15, color: Colors.red)),
+              onPressed: Get.back,
+            ),
+            FlatButton(
+              child: Text("Adicionar",
+                  style: TextStyle(fontSize: 15, color: Colors.green)),
+              onPressed: HomePageController.to.adicionarProduto,
+            ),
+          ],
         ),
       ],
     );
   }
 
-  void editarDialog(Produto produto){
+  void editarDialog(Produto produto) {
     HomePageController.to.nomeController.text = produto.nome;
     HomePageController.to.valorController.text = produto.valor.toString();
     Get.defaultDialog(
-      title: "Editar produto",
-      content: Column(
-        children: [
-          TextField(
-            controller: HomePageController.to.nomeController,
-            decoration: InputDecoration(
-                hintText: "Nome"
+      title: "",
+      content: Padding(
+        padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+              child: Text(
+                "Editar produto",
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+              ),
             ),
-          ),
-          TextField(
-            controller: HomePageController.to.valorController,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-                hintText: "Valor"
+            TextField(
+              controller: HomePageController.to.nomeController,
+              decoration: InputDecoration(hintText: "Nome"),
             ),
-          ),
-        ],
+            TextField(
+              controller: HomePageController.to.valorController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(hintText: "Valor"),
+            ),
+          ],
+        ),
       ),
       actions: [
-        FlatButton(
-          child: Text("voltar"),
-          onPressed: Get.back,
-        ),
-        FlatButton(
-          child: Text("Editar"),
-          onPressed: () => HomePageController.to.editarProduto(produto.id),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            FlatButton(
+              child: Text("voltar",
+                  style: TextStyle(fontSize: 15, color: Colors.red)),
+              onPressed: Get.back,
+            ),
+            FlatButton(
+              child: Text("Editar",
+                  style: TextStyle(fontSize: 15, color: Colors.green)),
+              onPressed: () => HomePageController.to.editarProduto(produto.id),
+            ),
+          ],
         ),
       ],
     );
