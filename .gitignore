@@ -30,6 +30,7 @@
 .pub-cache/
 .pub/
 /build/
+/lib/repository/hasura_settings.dart
 
 # Web related
 lib/generated_plugin_registrant.dart
